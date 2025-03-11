@@ -1,16 +1,19 @@
 # Use Nginx as the base image
 FROM nginx:latest
 
-# Set the working directory
+# Set working directory
 WORKDIR /usr/share/nginx/html
 
-# Remove default Nginx static files
+# Remove default Nginx files
 RUN rm -rf ./*
 
-# Copy your frontend files to Nginx HTML directory
+# Copy frontend files
 COPY . .
 
-# Expose the Nginx port
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose Nginx port
 EXPOSE 80
 
 # Start Nginx
